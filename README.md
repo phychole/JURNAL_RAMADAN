@@ -15,18 +15,16 @@
 ## Akun default
 - admin / admin123 (dibuat oleh seed.php)
 
-## Import Siswa
+## Import Data
 - Admin -> Import
 - XLSX butuh `composer install` (PhpSpreadsheet)
 - Alternatif: simpan file Excel sebagai CSV
 
-Kolom yang dibaca:
-`nis, nama, username, password, kelas, tahun, gender, phone, address`
+di bagian import bisa mengimport untuk data dari kelas, siswa dan guru
 
 ## Report
 - Siswa punya report pribadi + chart
-- Wali kelas & guru agama punya rekap kelas + chart
-- Download PDF aktif jika dompdf terpasang (composer install). Jika belum, akan tampil HTML printable.
+- Wali kelas & guru agama punya rekap kelas + chart.
 
 ## Konfigurasi Ramadan
 Edit:
@@ -34,3 +32,8 @@ Edit:
 Atau set env var:
 - `RAMADAN_START=2026-02-19`
 - `RAMADAN_DAYS=30`
+## Maping Wali Kelas dan Guru Agama
+menu maping wali kelas dan guru agama
+
+## Pembuat
+Aplikasi ini dibuat secara sederhana dan boleh dikembangkan sesuai dengan kebutuhan. Mohon maaf jika masih banyak kekurangan karena memang dibuat untuk sesederhana mungkin. Saya menerima saran dan masukan untuk kita kembangkan bersama
