@@ -35,5 +35,5 @@ Atau set env var:
 ## Maping Wali Kelas dan Guru Agama
 menu maping wali kelas dan guru agama
 
-## Pembuat
+## Informasi dari kami
 Aplikasi ini dibuat secara sederhana dan boleh dikembangkan sesuai dengan kebutuhan. Mohon maaf jika masih banyak kekurangan karena memang dibuat untuk sesederhana mungkin. Saya menerima saran dan masukan untuk kita kembangkan bersama
