@@ -15,6 +15,10 @@
 ## Akun default
 - admin / admin123 (dibuat oleh seed.php)
 
+## PENTING INI YA...
+- Untuk mengganti password admin silahkan edit script seed.php atau reset_password.php
+- Pastikan hapus file seed.php dan reset_password.php agar tidak diakses oleh orang lain saat dipublish untuk publik
+
 ## Import Data
 - Admin -> Import
 - XLSX butuh `composer install` (PhpSpreadsheet)
