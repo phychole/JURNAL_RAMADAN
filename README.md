@@ -19,6 +19,8 @@
 - Untuk mengganti password admin silahkan edit script seed.php atau reset_admin_password.php
 - Pastikan hapus file seed.php dan reset_password.php agar tidak diakses oleh orang lain saat dipublish untuk publik
 
+## KOP Sekolah
+- kop sekolah saat mencetak bisa diedit pada script student_detail.php yang ada pada folder /view/homeroom dan /view/religion_teacher
 ## Import Data
 - Admin -> Import
 - XLSX butuh `composer install` (PhpSpreadsheet)
