@@ -1,12 +1,22 @@
 <?php
 function checked($v){ return !empty($v) ? 'checked' : ''; }
+
+// fallback aman kalau variabel belum dikirim
+$maxDayAllowed = (int)($maxDayAllowed ?? (int)$day ?? 1);
+if ($maxDayAllowed < 1) $maxDayAllowed = 1;
 ?>
 <div class="d-flex justify-content-between align-items-center mb-3">
   <div>
     <h4 class="mb-0">Isi Buku Ramadan</h4>
-    <div class="small text-muted">Hari Ramadan <?= (int)$day ?> • Tanggal: <?= htmlspecialchars($date) ?></div>
+    <div class="small text-muted">
+      Hari Ramadan <?= (int)$day ?> • Tanggal: <?= htmlspecialchars((string)$date) ?>
+      • <span class="fw-semibold">Hari ini: Hari Ramadan <?= (int)$maxDayAllowed ?></span>
+    </div>
     <?php if ($profile): ?>
-      <div class="text-muted small">NIS: <?= htmlspecialchars($profile['nis']) ?> • Kelas: <?= htmlspecialchars($profile['class_name'].' '.$profile['class_year']) ?></div>
+      <div class="text-muted small">NIS: <?= htmlspecialchars((string)$profile['nis']) ?> • Kelas: <?= htmlspecialchars((string)($profile['class_name'].' '.$profile['class_year'])) ?></div>
+    <?php endif; ?>
+    <?php if ((int)$maxDayAllowed < (int)RAMADAN_DAYS): ?>
+      <div class="small text-muted">⚠️ Hari setelah Ramadan <?= (int)$maxDayAllowed ?> masih dikunci agar tidak bisa mengisi sebelum waktunya.</div>
     <?php endif; ?>
   </div>
   <div>
@@ -14,21 +24,29 @@ function checked($v){ return !empty($v) ? 'checked' : ''; }
   </div>
 </div>
 
-<?php if (!empty($success)): ?><div class="alert alert-success"><?= htmlspecialchars($success) ?></div><?php endif; ?>
-<?php if (!empty($error)): ?><div class="alert alert-danger"><?= htmlspecialchars($error) ?></div><?php endif; ?>
+<?php if (!empty($success)): ?><div class="alert alert-success"><?= htmlspecialchars((string)$success) ?></div><?php endif; ?>
+<?php if (!empty($error)): ?><div class="alert alert-danger"><?= htmlspecialchars((string)$error) ?></div><?php endif; ?>
 
 <div class="card shadow-sm">
   <div class="card-header brand d-flex justify-content-between align-items-center">
     <div class="fw-semibold">Pengisian Harian</div>
-    <form method="get" action="<?= u('/student/journal') ?>" class="d-flex gap-2">
-  <select name="day" class="form-select form-select-sm">
-    <?php for($d=1; $d<=RAMADAN_DAYS; $d++): ?>
-      <option value="<?= $d ?>" <?= ((int)$day === $d) ? 'selected' : '' ?>>Hari Ramadan <?= $d ?></option>
-    <?php endfor; ?>
-  </select>
-  <button class="btn btn-sm btn-brand">Buka</button>
-</form>
+
+    <form method="get" action="<?= u('/student/journal') ?>" class="d-flex gap-2 align-items-center">
+      <select name="day" class="form-select form-select-sm">
+        <?php for($d=1; $d<= (int)RAMADAN_DAYS; $d++): ?>
+          <?php
+            $disabled = ($d > $maxDayAllowed) ? 'disabled' : '';
+            $selected = ((int)$day === $d) ? 'selected' : '';
+            $label = "Hari Ramadan {$d}";
+            if ($d > $maxDayAllowed) $label .= " (terkunci)";
+          ?>
+          <option value="<?= $d ?>" <?= $selected ?> <?= $disabled ?>><?= htmlspecialchars($label) ?></option>
+        <?php endfor; ?>
+      </select>
+      <button class="btn btn-sm btn-brand">Buka</button>
+    </form>
   </div>
+
   <div class="card-body">
     <form method="post" action="<?= u('/student/journal/save') ?>">
       <input type="hidden" name="day" value="<?= (int)$day ?>">
@@ -51,6 +69,7 @@ function checked($v){ return !empty($v) ? 'checked' : ''; }
               <div class="form-check"><input class="form-check-input" type="checkbox" name="maghrib" value="1" <?= checked($journal['maghrib'] ?? 0) ?>><label class="form-check-label">Maghrib</label></div>
               <div class="form-check"><input class="form-check-input" type="checkbox" name="isya" value="1" <?= checked($journal['isya'] ?? 0) ?>><label class="form-check-label">Isya</label></div>
             </div>
+
             <div class="col-md-6">
               <div class="fw-semibold mb-2">Ibadah Ramadan</div>
               <div class="form-check"><input class="form-check-input" type="checkbox" name="fasting" value="1" <?= checked($journal['fasting'] ?? 0) ?>><label class="form-check-label">Puasa</label></div>
@@ -61,6 +80,7 @@ function checked($v){ return !empty($v) ? 'checked' : ''; }
                 <input class="form-control" type="number" min="0" name="tadarus_pages" value="<?= htmlspecialchars((string)($journal['tadarus_pages'] ?? 0)) ?>">
               </div>
             </div>
+
             <div class="col-12">
               <label class="form-label">Catatan singkat</label>
               <input class="form-control" name="notes" value="<?= htmlspecialchars((string)($journal['notes'] ?? '')) ?>">
@@ -81,7 +101,7 @@ function checked($v){ return !empty($v) ? 'checked' : ''; }
 
         <div class="tab-pane fade" id="tab-kebaikan">
           <div class="row g-3">
-<div class="col-12">
+            <div class="col-12">
               <label class="form-label">Kegiatan sosial / kebaikan</label>
               <textarea class="form-control" name="social_activity" rows="4"><?= htmlspecialchars((string)($good['social_activity'] ?? '')) ?></textarea>
             </div>
