@@ -369,40 +369,61 @@ async function loadLineChart(){
  *  (kalau kamu sudah bikin /public/report/rekap)
  *  ============================= */
 function renderRekapTable(payload){
-  const days = Number(payload?.days || DAYS);
+  const days = Number(payload?.days || <?= (int)RAMADAN_DAYS ?>);
   const rows = payload?.rows || [];
 
   const head = document.getElementById('rekapHead');
   const body = document.getElementById('rekapBody');
 
+  // HEADER
   let h = `<tr>
     <th rowspan="2" class="text-center align-middle" style="min-width:60px">No</th>
     <th rowspan="2" class="align-middle" style="min-width:220px">Kelas</th>
     <th rowspan="2" class="text-center align-middle" style="min-width:120px">Jumlah Siswa</th>
     <th colspan="${days}" class="text-center">Siswa Mengisi Jurnal Hari ke</th>
-  </tr><tr>`;
-  for(let d=1; d<=days; d++) h += `<th class="text-center" style="min-width:44px">${d}</th>`;
+  </tr>
+  <tr>`;
+  for(let d=1; d<=days; d++){
+    h += `<th class="text-center" style="min-width:44px">${d}</th>`;
+  }
   h += `</tr>`;
   head.innerHTML = h;
 
+  // BODY
   body.innerHTML = '';
   rows.forEach(r => {
     const tr = document.createElement('tr');
+    const total = Number(r.total_students || 0);
     const dayCounts = r.day_counts || [];
+
     let tds = `
       <td class="text-center">${Number(r.no||0)}</td>
       <td>${esc(r.kelas)}</td>
-      <td class="text-center">${Number(r.total_students||0)}</td>
+      <td class="text-center fw-semibold">${total}</td>
     `;
-    for(let i=0;i<days;i++){
-      tds += `<td class="text-center">${Number(dayCounts[i]||0)}</td>`;
+
+    for(let i=0; i<days; i++){
+      const val = Number(dayCounts[i] || 0);
+
+      // Tentukan warna
+      let bgClass = '';
+      if (val === 0) {
+        bgClass = 'bg-danger-subtle text-danger fw-semibold';
+      } else if (val === total && total > 0) {
+        bgClass = 'bg-success-subtle text-success fw-semibold';
+      } else {
+        bgClass = 'bg-warning-subtle text-dark fw-semibold';
+      }
+
+      tds += `<td class="text-center ${bgClass}">${val}</td>`;
     }
+
     tr.innerHTML = tds;
     body.appendChild(tr);
   });
 
   if(rows.length === 0){
-    body.innerHTML = `<tr><td colspan="${3+days}" class="text-center text-muted">Tidak ada data.</td></tr>`;
+    body.innerHTML = `<tr><td colspan="${3 + days}" class="text-center text-muted">Tidak ada data.</td></tr>`;
   }
 }
 
