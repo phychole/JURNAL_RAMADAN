@@ -20,10 +20,10 @@
       <div class="kop-wrap">
         <div class="kop-line1">PEMERINTAH PROVINSI JAWA TIMUR</div>
         <div class="kop-line2">DINAS PENDIDIKAN</div>
-        <div class="kop-school">SEKOLAH MENENGAH KEJURUAN NEGERI 2 LUMAJANG</div>
-        <div class="kop-small">Jalan Gajah Mada No.- Telp./Fax. (0334) 881925</div>
-        <div class="kop-small">Email : smkn_02lmj@yahoo.co.id | http://www.smkn2lumajang.sch.id</div>
-        <div class="kop-line2">LUMAJANG</div>
+        <div class="kop-school">SEKOLAH MENENGAH KEJURUAN</div>
+        <div class="kop-small">Alamat</div>
+        <div class="kop-small">Alamat Web</div>
+        <div class="kop-line2">Kota</div>
       </div>
     </div>
   </div>
