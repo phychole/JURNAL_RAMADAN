@@ -16,7 +16,7 @@
 - admin / admin123 (dibuat oleh seed.php)
 
 ## PENTING INI YA...
-- Untuk mengganti password admin silahkan edit script seed.php atau reset_password.php
+- Untuk mengganti password admin silahkan edit script seed.php atau reset_admin_password.php
 - Pastikan hapus file seed.php dan reset_password.php agar tidak diakses oleh orang lain saat dipublish untuk publik
 
 ## Import Data
@@ -40,4 +40,5 @@ Atau set env var:
 menu maping wali kelas dan guru agama
 
 ## Informasi dari kami
-Aplikasi ini dibuat secara sederhana dan boleh dikembangkan sesuai dengan kebutuhan. Mohon maaf jika masih banyak kekurangan karena memang dibuat untuk sesederhana mungkin. Saya menerima saran dan masukan untuk kita kembangkan bersama
+- Aplikasi ini dibuat secara sederhana dan boleh dikembangkan sesuai dengan kebutuhan. Mohon maaf jika masih banyak kekurangan karena memang dibuat untuk sesederhana mungkin. Saya menerima saran dan masukan untuk kita kembangkan bersama
+- Tidak ada menu ganti password, silahkan bisa ditambahkan sendiri menu ganti password
