@@ -1,0 +1,9 @@
+[24-Feb-2026 06:14:13 Asia/Jakarta] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /home/smknluma/public_html/ramadhan.smkn2lumajang.sch.id/app/config/db.php:17
+Stack trace:
+#0 /home/smknluma/public_html/ramadhan.smkn2lumajang.sch.id/app/config/db.php(17): PDO->__construct('mysql:host=127....', 'root', Object(SensitiveParameterValue), Array)
+#1 /home/smknluma/public_html/ramadhan.smkn2lumajang.sch.id/app/Models/Journal.php(16): db()
+#2 /home/smknluma/public_html/ramadhan.smkn2lumajang.sch.id/app/Controllers/StudentController.php(54): App\Models\Journal::upsert(723, '2026-03-01', Array)
+#3 /home/smknluma/public_html/ramadhan.smkn2lumajang.sch.id/app/Core/Router.php(20): App\Controllers\StudentController->saveJournal()
+#4 /home/smknluma/public_html/ramadhan.smkn2lumajang.sch.id/public/index.php(109): App\Core\Router->dispatch('POST', '/student/journa...')
+#5 {main}
+  thrown in /home/smknluma/public_html/ramadhan.smkn2lumajang.sch.id/app/config/db.php on line 17
